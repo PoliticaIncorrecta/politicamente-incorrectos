@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sección | Políticamente Incorrectos</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600;700&family=Permanent+Marker&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#eae7e0;color:#171717;font-family:Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+
+header{
+  background:#151515;
+  color:white;
+  padding:25px 15px;
+  text-align:center;
+  border-bottom:5px solid #c62828
+}
+.logo-small{
+  font-family:Oswald,sans-serif;
+  letter-spacing:5px;
+  font-size:23px
+}
+.logo-large{
+  font-family:"Permanent Marker",cursive;
+  color:#d32f2f;
+  font-size:clamp(35px,7vw,65px);
+  line-height:1
+}
+.tagline{
+  color:#aaa;
+  letter-spacing:3px;
+  font-size:11px;
+  margin-top:12px
+}
+
+nav{background:#080808}
+nav div{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  max-width:1200px;
+  margin:auto
+}
+nav a{
+  color:white;
+  font-family:Oswald,sans-serif;
+  font-size:13px;
+  text-transform:uppercase;
+  padding:13px
+}
+nav a:hover{background:#c62828}
+
+.container{max-width:1200px;margin:auto;padding:25px 18px}
+.back{color:#c62828;font-weight:bold;font-size:14px}
+.section-title{
+  background:#171717;
+  color:white;
+  padding:25px;
+  margin:20px 0;
+  border-left:8px solid #c62828
+}
+.section-title small{
+  color:#c62828;
+  text-transform:uppercase;
+  font-weight:bold;
+  letter-spacing:2px
+}
+.section-title h1{
+  font-family:Anton,sans-serif;
+  font-size:clamp(35px,6vw,65px);
+  text-transform:uppercase;
+  line-height:1.05
+}
+.section-title p{color:#ccc;margin-top:10px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px
+}
+.card{
+  background:white;
+  border-bottom:5px solid #222;
+  transition:.2s
+}
+.card:hover{transform:translateY(-4px);border-color:#c62828}
+.card-image{
+  height:190px;
+  background:#292929;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#777;
+  font-family:Anton,sans-serif;
+  font-size:30px
+}
+.card-content{padding:18px}
+.card-content span{
+  color:#c62828;
+  font-family:Oswald,sans-serif;
+  text-transform:uppercase;
+  font-size:12px;
+  font-weight:bold
+}
+.card-content h2{
+  font-family:Oswald,sans-serif;
+  text-transform:uppercase;
+  font-size:23px;
+  margin:8px 0
+}
+.card-content p{color:#666;font-size:14px;line-height:1.5}
+.card-content .read{display:inline-block;margin-top:15px;color:#c62828;font-weight:bold;font-size:13px}
+
+.empty{
+  background:#fff;
+  padding:30px;
+  margin-top:20px;
+  color:#555;
+  border-left:5px solid #c62828
+}
+
+footer{
+  background:#111;
+  color:#999;
+  text-align:center;
+  padding:30px 15px;
+  margin-top:40px
+}
+footer strong{
+  display:block;
+  font-family:"Permanent Marker",cursive;
+  color:#c62828;
+  font-size:25px
+}
+
+@media(max-width:750px){
+  .grid{grid-template-columns:1fr 1fr}
+  nav a{font-size:12px;padding:10px}
+}
+@media(max-width:500px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo-small">POLÍTICAMENTE</div>
+  <div class="logo-large">INCORRECTOS</div>
+  <div class="tagline">INFORMACIÓN · CONTEXTO · OPINIÓN</div>
+</header>
+
+<nav>
+<div>
+<a href="index.html">Portada</a>
+<a href="seccion.html?cat=Último%20momento">Último momento</a>
+<a href="seccion.html?cat=Nacional">Nacional</a>
+<a href="seccion.html?cat=Internacional">Internacional</a>
+<a href="seccion.html?cat=Política">Política</a>
+<a href="seccion.html?cat=Cultura%20woke">Cultura woke</a>
+<a href="seccion.html?cat=Batalla%20cultural">Batalla cultural</a>
+<a href="seccion.html?cat=Archivo%20%2F%20Historia">Archivo / Historia</a>
+<a href="seccion.html?cat=Opinión">Opinión</a>
+<a href="seccion.html?cat=¿Ya%20lo%20olvidaron%3F">¿Ya lo olvidaron?</a>
+<a href="seccion.html?cat=El%20dato%20incómodo">El dato incómodo</a>
+</div>
+</nav>
+
+<main class="container">
+
+<a class="back" href="index.html">← VOLVER A PORTADA</a>
+
+<section class="section-title">
+  <small>SECCIÓN EDITORIAL</small>
+  <h1 id="sectionName">Noticias</h1>
+  <p id="sectionDescription">Información, contexto y análisis.</p>
+</section>
+
+<div class="grid" id="newsGrid"></div>
+
+<div class="empty" id="emptyMessage">
+  <strong>Próximamente.</strong>
+  <p>En esta sección aparecerán las publicaciones correspondientes. Estamos preparando contenido.</p>
+</div>
+
+</main>
+
+<footer>
+  <strong>POLÍTICAMENTE INCORRECTOS</strong>
+  Información · Contexto · Opinión
+</footer>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const category = params.get("cat") || "Noticias";
+
+const descriptions = {
+  "Último momento":"Lo que está ocurriendo ahora. Noticias y acontecimientos de última hora.",
+  "Nacional":"Los acontecimientos, decisiones y noticias que marcan la agenda nacional.",
+  "Internacional":"Lo que sucede en el mundo, más allá de nuestras fronteras.",
+  "Política":"Poder, decisiones, actores políticos y asuntos públicos.",
+  "Cultura woke":"Ideas, discursos, movimientos y fenómenos de la cultura woke bajo análisis crítico.",
+  "Batalla cultural":"El choque de ideas, valores, narrativas y visiones del mundo.",
+  "Archivo / Historia":"Antecedentes históricos para entender los acontecimientos del presente.",
+  "Opinión":"Análisis, crítica, argumentos y perspectivas editoriales.",
+  "¿Ya lo olvidaron?":"Declaraciones, promesas y acontecimientos que parecen haber quedado en el olvido.",
+  "El dato incómodo":"Cifras, documentos y hechos que incomodan los discursos establecidos."
+};
+
+document.getElementById("sectionName").textContent = category;
+document.getElementById("sectionDescription").textContent =
+  descriptions[category] || "Información, contexto y análisis.";
+
+document.title = category + " | Políticamente Incorrectos";
+</script>
+
+</body>
+</html>
