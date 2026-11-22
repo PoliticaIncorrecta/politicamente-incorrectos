@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artículo | Políticamente Incorrectos</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600;700&family=Permanent+Marker&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #eae7e0;
+  color: #171717;
+  font-family: Arial, sans-serif;
+  line-height: 1.7;
+}
+
+header {
+  background: #151515;
+  color: white;
+  padding: 25px 15px;
+  text-align: center;
+  border-bottom: 5px solid #c62828;
+}
+
+.logo-small {
+  font-family: Oswald, sans-serif;
+  letter-spacing: 5px;
+  font-size: 23px;
+}
+
+.logo-large {
+  font-family: "Permanent Marker", cursive;
+  color: #d32f2f;
+  font-size: clamp(35px, 7vw, 65px);
+  line-height: 1;
+}
+
+.tagline {
+  color: #aaa;
+  letter-spacing: 3px;
+  font-size: 11px;
+  margin-top: 12px;
+}
+
+nav {
+  background: #080808;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  font-family: Oswald, sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 13px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background: #c62828;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+.back {
+  color: #c62828;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.article {
+  background: white;
+  padding: clamp(20px, 5vw, 50px);
+  margin-top: 25px;
+  border-bottom: 6px solid #c62828;
+}
+
+.category {
+  color: #c62828;
+  font-family: Oswald, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-family: Anton, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(35px, 6vw, 58px);
+  line-height: 1.1;
+  margin: 12px 0;
+}
+
+.subtitle {
+  font-size: 19px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.meta {
+  color: #777;
+  font-size: 13px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+  margin-bottom: 25px;
+}
+
+.cover {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  margin-bottom: 25px;
+}
+
+.content {
+  font-size: 17px;
+  color: #292929;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.source {
+  border-left: 5px solid #c62828;
+  padding: 15px;
+  background: #f1efeb;
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+.source a {
+  color: #c62828;
+  overflow-wrap: anywhere;
+}
+
+.message {
+  background: white;
+  padding: 25px;
+  margin-top: 25px;
+  border-left: 5px solid #c62828;
+}
+
+footer {
+  background: #111;
+  color: #999;
+  text-align: center;
+  padding: 30px 15px;
+  margin-top: 40px;
+}
+
+footer strong {
+  display: block;
+  font-family: "Permanent Marker", cursive;
+  color: #c62828;
+  font-size: 25px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo-small">POLÍTICAMENTE</div>
+  <div class="logo-large">INCORRECTOS</div>
+  <div class="tagline">INFORMACIÓN · CONTEXTO · OPINIÓN</div>
+</header>
+
+<nav>
+  <a href="index.html">Portada</a>
+  <a href="seccion.html?cat=Nacional">Nacional</a>
+  <a href="seccion.html?cat=Internacional">Internacional</a>
+  <a href="seccion.html?cat=Política">Política</a>
+  <a href="seccion.html?cat=Batalla%20cultural">Batalla cultural</a>
+  <a href="seccion.html?cat=Opinión">Opinión</a>
+</nav>
+
+<main class="container">
+
+  <a class="back" href="index.html">← VOLVER A PORTADA</a>
+
+  <div id="articleContainer" class="message">
+    Cargando artículo...
+  </div>
+
+</main>
+
+<footer>
+  <strong>POLÍTICAMENTE INCORRECTOS</strong>
+  Información · Contexto · Opinión
+</footer>
+
+<script>
+async function cargarArticulo() {
+  const container = document.getElementById("articleContainer");
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  if (!id) {
+    container.textContent = "No se especificó qué artículo deseas consultar.";
+    return;
+  }
+
+  try {
+    const response = await fetch("articulos.json");
+
+    if (!response.ok) {
+      throw new Error("No se pudo cargar el catálogo.");
+    }
+
+    const articulos = await response.json();
+
+    const articulo = articulos.find(item =>
+      item.id === id && item.estado === "publicado"
+    );
+
+    if (!articulo) {
+      container.textContent =
+        "Este artículo no existe o todavía no está publicado.";
+      return;
+    }
+
+    container.className = "article";
+    container.innerHTML = "";
+
+    const category = document.createElement("div");
+    category.className = "category";
+    category.textContent = articulo.categoria || "";
+
+    const title = document.createElement("h1");
+    title.textContent = articulo.titulo || "";
+
+    const subtitle = document.createElement("p");
+    subtitle.className = "subtitle";
+    subtitle.textContent = articulo.subtitulo || "";
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+
+    const fecha = articulo.fecha
+      ? new Date(articulo.fecha + "T12:00:00").toLocaleDateString("es-MX", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        })
+      : "";
+
+    meta.textContent =
+      "Por " + (articulo.autor || "Redacción") +
+      (fecha ? " · " + fecha : "");
+
+    container.appendChild(category);
+    container.appendChild(title);
+    container.appendChild(subtitle);
+    container.appendChild(meta);
+
+    if (articulo.imagen && articulo.imagen.trim() !== "") {
+      const image = document.createElement("img");
+      image.className = "cover";
+      image.src = articulo.imagen;
+      image.alt = articulo.titulo || "Imagen del artículo";
+      container.appendChild(image);
+    }
+
+    const content = document.createElement("div");
+    content.className = "content";
+    content.textContent = articulo.contenido || "";
+    container.appendChild(content);
+
+    if (articulo.fuente && articulo.fuente.trim() !== "") {
+      const source = document.createElement("div");
+      source.className = "source";
+
+      const label = document.createElement("strong");
+      label.textContent = "FUENTE: ";
+
+      const link = document.createElement("a");
+      link.href = articulo.fuente;
+      link.textContent = articulo.fuente;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+
+      source.appendChild(label);
+      source.appendChild(link);
+      container.appendChild(source);
+    }
+
+    document.title =
+      (articulo.titulo || "Artículo") + " | Políticamente Incorrectos";
+
+  } catch (error) {
+    console.error(error);
+    container.textContent =
+      "No fue posible cargar el artículo. Intenta nuevamente más tarde.";
+  }
+}
+
+cargarArticulo();
+</script>
+
+</body>
+</html>
