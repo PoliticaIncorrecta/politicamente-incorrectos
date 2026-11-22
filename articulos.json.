@@ -1,0 +1,16 @@
+
+[
+  {
+    "id": "articulo-prueba-001",
+    "titulo": "Ejemplo de artículo: sustituir por un titular real",
+    "subtitulo": "Este registro sirve para probar el sistema editorial.",
+    "categoria": "Nacional",
+    "autor": "Redacción",
+    "fecha": "2026-11-21",
+    "imagen": "",
+    "resumen": "Contenido de demostración. No es una noticia real.",
+    "contenido": "Este es un artículo de prueba. Aquí irá el texto completo de la publicación.",
+    "fuente": "",
+    "estado": "borrador"
+  }
+]
